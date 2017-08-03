@@ -10,7 +10,7 @@ import android.widget.Toast;
 import com.multidots.fingerprintauth.FingerPrintAuthCallback;
 import com.multidots.fingerprintauth.FingerPrintAuthHelper;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, FingerPrintAuthCallback {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String DIALOG_FRAGMENT_TAG = "myFragment";
 
@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mFingerPrintAuthHelper = FingerPrintAuthHelper.getHelper(this, this);
+
         initView();
 
         if (!Configure.ALLOW_FRINGURE_PRINT)
@@ -53,45 +53,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onPause() {
         if (mFingerPrintAuthHelper != null)
-            stopTheAuth(mFingerPrintAuthHelper);
 
-        super.onPause();
+
+            super.onPause();
     }
 
-    @Override
-    public void onNoFingerPrintHardwareFound() {
-        Toast.makeText(this, "No Hardware", Toast.LENGTH_LONG).show();
-        stopTheAuth(mFingerPrintAuthHelper);
 
-    }
-
-    @Override
-    public void onNoFingerPrintRegistered() {
-        Toast.makeText(this, "onNoFingerPrintRegistered", Toast.LENGTH_LONG).show();
-        stopTheAuth(mFingerPrintAuthHelper);
-
-    }
-
-    @Override
-    public void onBelowMarshmallow() {
-        Toast.makeText(this, "onBelowMarshmallow", Toast.LENGTH_LONG).show();
-        stopTheAuth(mFingerPrintAuthHelper);
-    }
-
-    @Override
-    public void onAuthSuccess(FingerprintManager.CryptoObject cryptoObject) {
-        Toast.makeText(this, "onAuthSuccess", Toast.LENGTH_LONG).show();
-        stopTheAuth(mFingerPrintAuthHelper);
-    }
-
-    @Override
-    public void onAuthFailed(int errorCode, String errorMessage) {
-        Toast.makeText(this, "onAuthFailed" + " " + errorCode + " " + errorMessage, Toast.LENGTH_LONG).show();
-        stopTheAuth(mFingerPrintAuthHelper);
-    }
-
-    private void stopTheAuth(FingerPrintAuthHelper fingerPrintAuthHelper) {
-        fingerPrintAuthHelper.stopAuth();
-
-    }
 }

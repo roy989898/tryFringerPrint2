@@ -33,15 +33,20 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.multidots.fingerprintauth.FingerPrintAuthCallback;
+import com.multidots.fingerprintauth.FingerPrintAuthHelper;
 
 /**
  * A dialog which uses fingerprint APIs to authenticate the user, and falls back to password
  * authentication if fingerprint is not available.
  */
-public class FingerprintAuthenticationDialogFragment extends DialogFragment {
+public class FingerprintAuthenticationDialogFragment extends DialogFragment implements FingerPrintAuthCallback {
 
     private Button mCancelButton;
     private MainActivity mActivity;
+    private FingerPrintAuthHelper mFingerPrintAuthHelper;
 
 
     @Override
@@ -58,15 +63,18 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment {
                              Bundle savedInstanceState) {
         getDialog().setTitle(getString(R.string.sign_in));
         View v = inflater.inflate(R.layout.fingerprint_dialog_container, container, false);
+
+        mFingerPrintAuthHelper = FingerPrintAuthHelper.getHelper(mActivity, this);
+
+        mFingerPrintAuthHelper.startAuth();
         mCancelButton = (Button) v.findViewById(R.id.cancel_button);
         mCancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                stopTheAuth(mFingerPrintAuthHelper);
                 dismiss();
             }
         });
-
-
 
 
         return v;
@@ -81,6 +89,7 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment {
 
     @Override
     public void onPause() {
+        stopTheAuth(mFingerPrintAuthHelper);
         super.onPause();
 
     }
@@ -89,6 +98,44 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         mActivity = (MainActivity) getActivity();
+
+    }
+
+    @Override
+    public void onNoFingerPrintHardwareFound() {
+        Toast.makeText(mActivity, "No Hardware", Toast.LENGTH_LONG).show();
+        stopTheAuth(mFingerPrintAuthHelper);
+
+    }
+
+    @Override
+    public void onNoFingerPrintRegistered() {
+        Toast.makeText(mActivity, "onNoFingerPrintRegistered", Toast.LENGTH_LONG).show();
+        stopTheAuth(mFingerPrintAuthHelper);
+
+    }
+
+    @Override
+    public void onBelowMarshmallow() {
+        Toast.makeText(mActivity, "onBelowMarshmallow", Toast.LENGTH_LONG).show();
+        stopTheAuth(mFingerPrintAuthHelper);
+    }
+
+    @Override
+    public void onAuthSuccess(FingerprintManager.CryptoObject cryptoObject) {
+        Toast.makeText(mActivity, "onAuthSuccess", Toast.LENGTH_LONG).show();
+        stopTheAuth(mFingerPrintAuthHelper);
+    }
+
+    @Override
+    public void onAuthFailed(int errorCode, String errorMessage) {
+        Toast.makeText(mActivity, "onAuthFailed" + " " + errorCode + " " + errorMessage, Toast.LENGTH_LONG).show();
+        stopTheAuth(mFingerPrintAuthHelper);
+    }
+
+    private void stopTheAuth(FingerPrintAuthHelper fingerPrintAuthHelper) {
+        fingerPrintAuthHelper.stopAuth();
+        dismiss();
 
     }
 
