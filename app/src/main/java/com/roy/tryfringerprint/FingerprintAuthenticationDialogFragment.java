@@ -43,14 +43,6 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment {
     private Button mCancelButton;
 
 
-    private Stage mStage = Stage.FINGERPRINT;
-
-    private FingerprintManager.CryptoObject mCryptoObject;
-
-    private MainActivity mActivity;
-
-    private InputMethodManager mInputMethodManager;
-    private SharedPreferences mSharedPreferences;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -74,7 +66,7 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment {
             }
         });
 
-        
+
 
 
         return v;
