@@ -41,12 +41,7 @@ import android.widget.TextView;
 public class FingerprintAuthenticationDialogFragment extends DialogFragment {
 
     private Button mCancelButton;
-    private View mFingerprintContent;
-    private View mBackupContent;
-    private EditText mPassword;
-    private CheckBox mUseFingerprintFutureCheckBox;
-    private TextView mPasswordDescriptionTextView;
-    private TextView mNewFingerprintEnrolledTextView;
+
 
     private Stage mStage = Stage.FINGERPRINT;
 
@@ -79,16 +74,7 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment {
             }
         });
 
-
-        mFingerprintContent = v.findViewById(R.id.fingerprint_container);
-        mBackupContent = v.findViewById(R.id.backup_container);
-        mPassword = (EditText) v.findViewById(R.id.password);
-
-        mPasswordDescriptionTextView = (TextView) v.findViewById(R.id.password_description);
-        mUseFingerprintFutureCheckBox = (CheckBox)
-                v.findViewById(R.id.use_fingerprint_in_future_check);
-        mNewFingerprintEnrolledTextView = (TextView)
-                v.findViewById(R.id.new_fingerprint_enrolled_description);
+        
 
 
         return v;

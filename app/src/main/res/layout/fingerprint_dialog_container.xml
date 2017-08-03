@@ -24,9 +24,7 @@
 
         <include layout="@layout/fingerprint_dialog_content" />
 
-        <include
-            layout="@layout/fingerprint_dialog_backup"
-            android:visibility="gone" />
+
 
     </FrameLayout>
 
