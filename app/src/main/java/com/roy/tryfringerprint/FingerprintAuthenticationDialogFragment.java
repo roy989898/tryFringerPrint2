@@ -41,7 +41,7 @@ import android.widget.TextView;
 public class FingerprintAuthenticationDialogFragment extends DialogFragment {
 
     private Button mCancelButton;
-
+    private MainActivity mActivity;
 
 
     @Override
@@ -78,9 +78,6 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment {
 
     }
 
-    public void setStage(Stage stage) {
-        mStage = stage;
-    }
 
     @Override
     public void onPause() {
