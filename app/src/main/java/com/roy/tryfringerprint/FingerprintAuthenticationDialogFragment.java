@@ -41,7 +41,6 @@ import android.widget.TextView;
 public class FingerprintAuthenticationDialogFragment extends DialogFragment {
 
     private Button mCancelButton;
-    private Button mSecondDialogButton;
     private View mFingerprintContent;
     private View mBackupContent;
     private EditText mPassword;
@@ -80,7 +79,6 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment {
             }
         });
 
-        mSecondDialogButton = (Button) v.findViewById(R.id.second_dialog_button);
 
         mFingerprintContent = v.findViewById(R.id.fingerprint_container);
         mBackupContent = v.findViewById(R.id.backup_container);
