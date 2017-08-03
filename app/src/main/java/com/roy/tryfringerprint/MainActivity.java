@@ -22,6 +22,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         mFingerPrintAuthHelper = FingerPrintAuthHelper.getHelper(this, this);
         initView();
+
+        if (!Configure.ALLOW_FRINGURE_PRINT)
+            btFingerPrint.setVisibility(View.GONE);
     }
 
     private void initView() {
