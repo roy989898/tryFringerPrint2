@@ -12,6 +12,8 @@ import com.multidots.fingerprintauth.FingerPrintAuthHelper;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, FingerPrintAuthCallback {
 
+    private static final String DIALOG_FRAGMENT_TAG = "myFragment";
+
 
     private Button btFingerPrint;
     private FingerPrintAuthHelper mFingerPrintAuthHelper;
@@ -37,7 +39,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.bt_finger_print:
-                mFingerPrintAuthHelper.startAuth();
+//                mFingerPrintAuthHelper.startAuth();
+
+                FingerprintAuthenticationDialogFragment fragment
+                        = new FingerprintAuthenticationDialogFragment();
+
+                fragment.show(getFragmentManager(), DIALOG_FRAGMENT_TAG);
                 break;
         }
 
